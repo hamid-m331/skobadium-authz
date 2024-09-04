@@ -12,3 +12,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = environ.get("SKOB_AUTHZ_DATABASE_URI", None)
     SQLALCHEMY_TRACK_MODIFICATIONS = TESTING
 
+    ###  USER CONFIGs  ###
+    
+    USER_DEFAULT_RULE = environ.get("SKOB_AUTHZ_USER_DEFAULT_RULE", "member")
+    USER_DEFAULT_STATUS = environ.get("SKOB_AUTHZ_USER_DEFAULT_STATUS", "inactive")
