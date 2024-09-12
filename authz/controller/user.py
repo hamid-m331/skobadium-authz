@@ -1,9 +1,11 @@
 from flask_restful import abort, request
 from authz import db
+from authz.decorator import auth_required
 from authz.model import User
 from authz.schema import UserSchema
 
 class UserController:
+    @auth_required
     def create_user():
         if request.content_type != "application/json":
             abort(415)  # Bad Media Type
@@ -31,7 +33,7 @@ class UserController:
         return {
             "user": user_schema.dump(user)
         }, 200
-
+    @auth_required
     def get_users():
         try:
             users = User.query.all() 
@@ -53,7 +55,7 @@ class UserController:
         return {
             "user": user_schema.dump(user)
         },200 
-    
+    @auth_required
     def update_user(user_id):
         if request.content_type != "application/json":
             abort(415)
@@ -77,6 +79,7 @@ class UserController:
         return {
             "user": user_schema.dump(user)
         }, 200
+    @auth_required
     def delete_user(user_id):
         try:
             user = User.query.get(user_id)
