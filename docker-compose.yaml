@@ -1,0 +1,32 @@
+version: !!str 3
+services:
+  authz:
+    build: .
+    container_name: authz
+    image: authz:latest
+    depends_on:
+      - mysql
+    env_file:
+      - .env
+    environment:
+      - SKOB_AUTHZ_USER_DEFAULT_STATUS=active
+    expose: 
+      - 8080
+
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    env_file:
+      - .mysqlenv
+    expose:
+      - "3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+volumes:
+  mysql_data:
+
+
